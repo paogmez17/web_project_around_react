@@ -4,7 +4,9 @@
   flex-direction: column;
   justify-content: space-between;
   position: relative;
+  padding-bottom: 20px; /* deja espacio para el botón like */
 }
+
 .card__title {
   background-color: white;
   color: black;

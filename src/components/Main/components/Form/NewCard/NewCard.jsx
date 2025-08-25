@@ -1,14 +1,14 @@
-export default function NewCard() {
+export default function NewCard({ onClose }) {
   return (
-    <form
-      className="popup__form"
-      name="card-form"
-      id="new-card-form"
-      noValidate
-    >
-      <label className="popup__field">
+    <div className="popup__container">
+      <form
+        className="popup__form"
+        name="card-form"
+        id="new-card-form"
+        noValidate
+      >
         <input
-          className="popup__input popup__input_type_card-name"
+          className="popup__input"
           id="card-name"
           maxLength="30"
           minLength="1"
@@ -18,10 +18,9 @@ export default function NewCard() {
           type="text"
         />
         <span className="popup__error" id="card-name-error"></span>
-      </label>
-      <label className="popup__field">
+
         <input
-          className="popup__input popup__input_type_url"
+          className="popup__input"
           id="card-link"
           name="link"
           placeholder="Image link"
@@ -29,10 +28,11 @@ export default function NewCard() {
           type="url"
         />
         <span className="popup__error" id="card-link-error"></span>
-      </label>
-      <button className="button popup__button" type="submit">
-        Guardar
-      </button>
-    </form>
+
+        <button className="popup__submit-button" type="submit" id="save">
+          Guardar
+        </button>
+      </form>
+    </div>
   );
 }

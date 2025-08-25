@@ -6,7 +6,7 @@ import Popup from "../Main/components/Popup/Popup";
 import NewCard from "../Main/components/Form/NewCard/NewCard";
 import EditProfile from "../Main/components/Form/EditProfile/EditProfile";
 import EditAvatar from "../Main/components/Form/EditAvatar/EditAvatar";
-import Card from "../Main/components/Card/Card";
+import Card from "./components/Card/Card";
 import ImagePopup from "../ImagePopup/ImagePopup";
 
 export default function Main() {
@@ -36,8 +36,6 @@ export default function Main() {
     },
   ];
 
-  console.log(cards);
-
   function handleOpenPopup(popupData) {
     console.log("Abriendo popup:", popupData);
     setPopup(popupData);
@@ -48,6 +46,10 @@ export default function Main() {
 
   function handleCardClick(card) {
     setSelectedCard(card); // abre la imagen
+  }
+
+  function handleCloseImagePopup() {
+    setSelectedCard(null); // esto cierra la imagen
   }
 
   return (
@@ -104,11 +106,9 @@ export default function Main() {
 
       {/* Sección de tarjetas */}
       <section className="elements" id="elements">
-        <ul className="cards__list">
-          {cards.map((card) => (
-            <Card key={card._id} card={card} onImageClick={handleCardClick} />
-          ))}
-        </ul>
+        {cards.map((card) => (
+          <Card key={card._id} card={card} onCardClick={handleCardClick} />
+        ))}
       </section>
 
       {popup && (
@@ -120,7 +120,7 @@ export default function Main() {
       {selectedCard && (
         <ImagePopup
           card={selectedCard}
-          onClose={handleClosePopup}
+          onClose={handleCloseImagePopup}
           isOpen={!!selectedCard}
         />
       )}

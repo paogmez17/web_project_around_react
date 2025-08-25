@@ -148,6 +148,9 @@
   .profile__info-name {
     font-size: 25px;
     padding-bottom: 16px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
   }
 
   .profile__add-button {

@@ -1,16 +1,16 @@
 import Popup from "../Main/components/Popup/Popup";
-
-export default function ImagePopup({ card, onClose }) {
-  if (!card) return null; // nada abierto
-
-  const { name, link } = card;
-
+export default function ImagePopup({ card, onClose, isOpen }) {
   return (
-    <Popup onClose={onClose} /* sin title */>
-      <figure className="popup__figure">
-        <img className="popup__image" src={link} alt={name} />
-        <figcaption className="popup__caption">{name}</figcaption>
-      </figure>
-    </Popup>
+    <div className={`popup ${isOpen ? "popup_opened" : ""}`}>
+      <div className="popup__container">
+        <button
+          type="button"
+          className="popup__exit"
+          onClick={onClose}
+          aria-label="Close"
+        ></button>
+        <img src={card.link} alt={card.name} className="popup__image" />
+      </div>
+    </div>
   );
 }

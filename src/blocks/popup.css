@@ -77,10 +77,12 @@
   position: absolute;
   top: -35px;
   right: -40px;
-  background-color: rgba(0, 0, 0, 0);
-  color: white;
+  background-color: rgba(85, 84, 84, 0.832);
+  color: rgb(255, 255, 255);
   border: none;
-  font-size: 35px;
+  width: 32px;
+  height: 32px;
+  background: url("../images/CloseIcon.png");
 }
 
 .popup__input {
@@ -107,10 +109,9 @@
 }
 
 .popup__button {
-  height: 50.15px;
   color: #fffbfb;
-  background-color: rgb(0, 0, 0);
-  border: 1px solid #c4c4c4;
+  background-color: transparent;
+  border: 1px solid transparent;
   margin-top: 20px;
   padding: 0;
 }
@@ -127,7 +128,8 @@
 }
 
 .popup__exit:hover {
-  color: #fffbfb92;
+  color: #fffbfb5e;
+  transform: scale(1.1); /* aumenta un poco el tamaño al pasar el mouse */
 }
 
 .popup__img {
