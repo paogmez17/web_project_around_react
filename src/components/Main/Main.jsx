@@ -1,98 +1,63 @@
 import editButton from "../../images/editbutton.png";
 import addButton from "../../images/addbutton.png";
-import profilePicture from "../../images/Paola.jpg";
-import { useState } from "react";
 import Popup from "../Main/components/Popup/Popup";
-import NewCard from "../Main/components/Form/NewCard/NewCard";
-import EditProfile from "../Main/components/Form/EditProfile/EditProfile";
-import EditAvatar from "../Main/components/Form/EditAvatar/EditAvatar";
 import Card from "./components/Card/Card";
 import ImagePopup from "../ImagePopup/ImagePopup";
+import { useState, useContext } from "react";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 
-export default function Main() {
-  const [popup, setPopup] = useState(null);
+export default function Main({
+  cards,
+  onCardLike,
+  onCardDelete,
+  onOpenPopup,
+  onClosePopup,
+  popup,
+  popups,
+}) {
+  const { currentUser } = useContext(CurrentUserContext);
   const [selectedCard, setSelectedCard] = useState(null);
 
-  const newCardPopup = { title: "New place", children: <NewCard /> };
-  const editProfilePopup = { title: "Edit profile", children: <EditProfile /> };
-  const editAvatarPopup = { title: "Edit avatar", children: <EditAvatar /> };
-
-  const cards = [
-    {
-      isLiked: false,
-      _id: "5d1f0611d321eb4bdcd707dd",
-      name: "Yosemite Valley",
-      link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_yosemite.jpg",
-      owner: "5d1f0611d321eb4bdcd707dd",
-      createdAt: "2019-07-05T08:10:57.741Z",
-    },
-    {
-      isLiked: false,
-      _id: "5d1f064ed321eb4bdcd707de",
-      name: "Lake Louise",
-      link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_lake-louise.jpg",
-      owner: "5d1f0611d321eb4bdcd707dd",
-      createdAt: "2019-07-05T08:11:58.324Z",
-    },
-  ];
-
-  function handleOpenPopup(popupData) {
-    console.log("Abriendo popup:", popupData);
-    setPopup(popupData);
-  }
-  function handleClosePopup() {
-    setPopup(null); // cerrar popup
-  }
-
-  function handleCardClick(card) {
-    setSelectedCard(card); // abre la imagen
-  }
-
-  function handleCloseImagePopup() {
-    setSelectedCard(null); // esto cierra la imagen
-  }
+  const handleCardClick = (card) => setSelectedCard(card);
+  const handleCloseImagePopup = () => setSelectedCard(null);
 
   return (
     <main>
-      {/* Sección de perfil */}
       <section className="profile">
         <div className="profile__content">
           <div className="profile__avatar-area">
             <img
               className="profile__picture"
-              src={profilePicture}
-              alt="imagen perfil"
+              src={currentUser.avatar || ""}
+              alt="perfil"
             />
             <button
               type="button"
               className="profile__avatar-edit-button"
-              aria-label="Editar avatar"
-              onClick={() => handleOpenPopup(editAvatarPopup)}
+              onClick={() => onOpenPopup(popups.editAvatarPopup)}
             >
               <img src={editButton} alt="Editar avatar" />
             </button>
           </div>
-
           <div className="profile__info">
             <div className="profile__edit">
-              <h2 className="profile__info-name">Paola Gomez</h2>
+              <h2 className="profile__info-name">{currentUser.name || ""}</h2>
               <button
                 className="profile__edit-button"
                 type="button"
-                onClick={() => handleOpenPopup(editProfilePopup)}
+                onClick={() => onOpenPopup(popups.editProfilePopup)}
               >
-                <img alt="edit button" src={editButton} />
+                <img src={editButton} alt="edit button" />
               </button>
             </div>
-            <h3 className="profile__info-career">Web Developer</h3>
+            <h3 className="profile__info-career">{currentUser.about || ""}</h3>
           </div>
-
           <div className="profile__add">
             <button
               aria-label="Add card"
               className="profile__add-button"
               type="button"
-              onClick={() => handleOpenPopup(newCardPopup)}
+              onClick={() => onOpenPopup(popups.newCardPopup)}
             >
               <img
                 src={addButton}
@@ -104,15 +69,20 @@ export default function Main() {
         </div>
       </section>
 
-      {/* Sección de tarjetas */}
       <section className="elements" id="elements">
         {cards.map((card) => (
-          <Card key={card._id} card={card} onCardClick={handleCardClick} />
+          <Card
+            key={card._id}
+            card={card}
+            onCardClick={handleCardClick}
+            onCardDelete={onCardDelete}
+            onCardLike={onCardLike}
+          />
         ))}
       </section>
 
       {popup && (
-        <Popup onClose={handleClosePopup} title={popup.title}>
+        <Popup onClose={onClosePopup} title={popup.title}>
           {popup.children}
         </Popup>
       )}
