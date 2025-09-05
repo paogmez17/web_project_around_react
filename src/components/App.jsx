@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
-import Header from "./components/Header/Header";
-import Main from "./components/Main/Main";
-import Footer from "./components/Footer/Footer";
-import api from "./utils/api";
-import CurrentUserContext from "./contexts/CurrentUserContext";
-import EditProfile from "./components/Main/components/Form/EditProfile/EditProfile";
-import EditAvatar from "./components/Main/components/Form/EditAvatar/EditAvatar";
-import NewCard from "./components/Main/components/Form/NewCard/NewCard";
+import Header from "./Header/Header";
+import Main from "./Main/Main";
+import Footer from "./Footer/Footer";
+import api from "../utils/api";
+import CurrentUserContext from "../contexts/CurrentUserContext";
+import EditProfile from "./Main/components/Form/EditProfile/EditProfile";
+import EditAvatar from "./Main/components/Form/EditAvatar/EditAvatar";
+import NewCard from "./Main/components/Form/NewCard/NewCard";
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
